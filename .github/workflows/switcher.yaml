@@ -8,6 +8,7 @@ jobs:
   preparation:
     name: Switcher
     runs-on: self-hosted
+    environment: nova.ci
     steps:
       - name: Catch Github Events
         env:
