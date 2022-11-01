@@ -4,7 +4,7 @@ on:
 
 jobs:
   preparation:
-    name: Preparation
+    name: Switcher
     runs-on: self-hosted
     steps:
       - name: Catch Github Events
@@ -14,8 +14,8 @@ jobs:
           echo $GITHUB_CONTEXT
 
   call-external-local-repo:
-    name: Call Builder
-    if: ${{ github.event_name == 'push' }}
+    name: Call Builder If Push Tagged
+    if: ${{ github.event_name == 'push' }} && ${{ contains(github.ref, 'tags') }} && ${{ contains(github.ref, 'build-') }}
     #uses: pilganchuk/botflow/.github/workflows/build_scenario.yaml@main
     #uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
     uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
