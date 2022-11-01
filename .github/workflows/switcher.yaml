@@ -16,8 +16,14 @@ jobs:
           echo ${{ contains(github.ref, 'tags') }}
           echo ${{ contains(github.ref, 'build-') }}
 
-  call-external-local-repo:
-    name: Call Builder If Push Tagged
-    if: ${{ github.event_name == 'push' && contains(github.ref, 'tags') && contains(github.ref, 'build-') }}
+  call-external-on-push-tags:
+    name: Call Builder On Push Tags
+    if: ${{ github.event_name == 'push' && github.ref_type == 'tag' && contains(github.ref, 'build-') }}
+    uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
+    secrets: inherit
+
+  call-external-on-push-branches:
+    name: Call Builder If Push Certain Branches
+    if: ${{ github.event_name == 'push' && github.ref_type == 'branch' }}
     uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
     secrets: inherit
