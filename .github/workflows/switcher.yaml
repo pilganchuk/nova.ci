@@ -6,7 +6,13 @@ jobs:
   preparation:
     name: Preparation
     runs-on: self-hosted
-    
+    steps:
+      - name: Catch Github Events
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: |
+          echo $GITHUB_CONTEXT
+
   call-external-local-repo:
     name: Call Builder
     if: ${{ github.event_name == 'push' }}
