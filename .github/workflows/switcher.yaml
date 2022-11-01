@@ -26,7 +26,7 @@ jobs:
     with:
       environment: nova.ci
     secrets:
-      PASSWORD: ${{ secrets.PASSWORD }}
+      PASSWORD: ${{ secrets.REPO_GIT_TOKEN }}
     #secrets: inherit
 
   call-external-on-push-branches:
