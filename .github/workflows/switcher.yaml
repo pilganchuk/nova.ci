@@ -12,11 +12,12 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: |
           echo $GITHUB_CONTEXT
+          echo ${{ github.event_name == 'push' }}
+          echo ${{ contains(github.ref, 'tags') }}
+          echo ${{ contains(github.ref, 'build-') }}
 
   call-external-local-repo:
     name: Call Builder If Push Tagged
     if: ${{ github.event_name == 'push' }} && ${{ contains(github.ref, 'tags') }} && ${{ contains(github.ref, 'build-') }}
-    #uses: pilganchuk/botflow/.github/workflows/build_scenario.yaml@main
-    #uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
-    uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
+    uses: ./.github/workflows/build_scenario.yaml@main
     secrets: inherit
