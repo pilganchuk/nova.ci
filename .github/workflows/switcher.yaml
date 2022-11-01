@@ -15,12 +15,13 @@ jobs:
           echo ${{ github.event_name == 'push' }}
           echo ${{ contains(github.ref, 'tags') }}
           echo ${{ contains(github.ref, 'build-') }}
+          echo ${{ secrets.REPO_GIT_TOKEN }}
 
   call-external-on-push-tags:
     name: Call Builder On Push Tags
     if: ${{ github.event_name == 'push' && github.ref_type == 'tag' && contains(github.ref_name, 'build-') }}
     uses: pilganchuk/nova.ci/.github/workflows/build-on-push-tags.yaml@main
-    secrets: inherit
+    #secrets: inherit
 
   call-external-on-push-branches:
     name: Call Builder If Push Certain Branches
