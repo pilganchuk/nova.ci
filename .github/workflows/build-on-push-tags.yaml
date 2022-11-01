@@ -19,6 +19,7 @@ jobs:
           echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" | tee -a $GITHUB_ENV $GITHUB_OUTPUT
           echo "SHORT_REF_NAME=`echo ${GITHUB_REF_NAME} | cut -c 7-`" | tee -a $GITHUB_ENV $GITHUB_OUTPUT
           echo "RELEASE=`echo $(date +'%Y_R%q')`" | tee -a $GITHUB_ENV $GITHUB_OUTPUT
+          echo ${{ secrets.REPO_GITHUB_TOKEN }}
           
 
       - name: Login to GitHub Container Registry
