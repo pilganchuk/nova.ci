@@ -8,7 +8,6 @@ jobs:
   preparation:
     name: Switcher
     runs-on: self-hosted
-    environment: nova.ci
     steps:
       - name: Catch Github Events
         env:
@@ -24,11 +23,7 @@ jobs:
     name: Call Builder On Push Tags
     if: ${{ github.event_name == 'push' && github.ref_type == 'tag' && contains(github.ref_name, 'build-') }}
     uses: pilganchuk/nova.ci/.github/workflows/build-on-push-tags.yaml@main
-    with:
-      environment: nova.ci
-    secrets:
-      PASSWORD: ${{ secrets.REPO_GIT_TOKEN }}
-    #secrets: inherit
+    secrets: inherit
 
   call-external-on-push-branches:
     name: Call Builder If Push Certain Branches
