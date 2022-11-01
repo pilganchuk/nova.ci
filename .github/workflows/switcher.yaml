@@ -19,5 +19,5 @@ jobs:
   call-external-local-repo:
     name: Call Builder If Push Tagged
     if: ${{ github.event_name == 'push' }} && ${{ contains(github.ref, 'tags') }} && ${{ contains(github.ref, 'build-') }}
-    uses: ./.github/workflows/build_scenario.yaml@main
+    uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
     secrets: inherit
