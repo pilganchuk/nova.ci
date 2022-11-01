@@ -1,0 +1,16 @@
+name: Switcher
+on:
+  workflow_call:
+
+jobs:
+  preparation:
+    name: Preparation
+    runs-on: self-hosted
+    
+  call-external-local-repo:
+    name: Call Builder
+    if: ${{ github.event_name == 'push' }}
+    #uses: pilganchuk/botflow/.github/workflows/build_scenario.yaml@main
+    #uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
+    uses: pilganchuk/nova.ci/.github/workflows/build_scenario.yaml@main
+    secrets: inherit
