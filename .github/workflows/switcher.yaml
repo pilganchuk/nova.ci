@@ -1,21 +1,21 @@
 name: Switcher
 on:
   workflow_call:
-    # inputs:
-    #   environment:
-    #     type: string
-    #     description: environment to deploy to
-    #     required: true
-    # secrets:
-    #   REPO_GIT_TOKEN:
-    #     required: true
+    inputs:
+      environment:
+        type: string
+        description: environment to deploy to
+        required: true
+    secrets:
+      REPO_GIT_TOKEN:
+        required: true
 
 
 jobs:
   preparation:
     name: Switcher
     runs-on: self-hosted
-    environment: nova.ci
+    environment: ${{ inputs.environment }}
     steps:
       - name: Catch Github Events
         env:
