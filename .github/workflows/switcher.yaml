@@ -1,21 +1,13 @@
 name: Switcher
 on:
   workflow_call:
-    inputs:
-      environment:
-        type: string
-        description: environment to deploy to
-        required: true
-    secrets:
-      REPO_GIT_TOKEN:
-        required: true
+
 
 
 jobs:
   preparation:
     name: Switcher
     runs-on: self-hosted
-    environment: ${{ inputs.environment }}
     steps:
       - name: Catch Github Events
         env:
@@ -31,6 +23,10 @@ jobs:
     name: Call Builder On Push Tags
     if: ${{ github.event_name == 'push' && github.ref_type == 'tag' && contains(github.ref_name, 'build-') }}
     uses: pilganchuk/nova.ci/.github/workflows/build-on-push-tags.yaml@main
+    with:
+      environment: nova.ci
+    secrets:
+      PASSWORD: ${{ secrets.PASSWORD }}
     #secrets: inherit
 
   call-external-on-push-branches:
